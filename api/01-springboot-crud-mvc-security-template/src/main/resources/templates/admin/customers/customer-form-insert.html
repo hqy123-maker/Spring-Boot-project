@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Customer</title>
+</head>
+<body>
+<section layout:fragment="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Add New Customer</h1>
+        <form th:action="@{/admin/customers/save}" method="post" th:object="${customer}">
+          <!-- Không có hidden id vì là thêm mới -->
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" th:field="*{name}" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" th:field="*{email}" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" th:field="*{phone}" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <textarea th:field="*{address}" class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success mt-3">Add Customer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

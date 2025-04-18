@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grilled & Skewers - Về chúng tôi</title>
+    <link rel="stylesheet" href="/default/css/style.css">
+
+</head>
+<body>
+<!-- Header -->
+<header class="hero">
+    <div class="navbar">
+        <div class="logo">
+            <img src="/default/images/PlaceYourLogoHere(DoubleClicktoEdit).png" alt="Grilled & Skewers Logo">
+        </div>
+        <div class="nav-right">
+            <div class="phone">
+                <img src="/default/images/Delivery Icon.png" class="clock-icon" alt="Clock">
+                <img src="/default/images/Phone.png" class="Phone" alt="Phone">
+            </div>
+            <div class="link">
+                <a th:href="@{/}">Home</a> |
+                <a th:href="@{/menu}">Menu</a> |
+                <a th:href="@{/ourstory}">Our Story</a> |
+                <a th:href="@{/contact-us}">Contact Us</a>
+                <span th:if="${#authentication != null && #authentication.isAuthenticated()}">
+                    <div class="user-section">
+                        <button class="user-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span th:text="${#authentication.name}"></span>
+                        </button>
+                        <div class="user-dropdown">
+                            <!-- Nút Admin (chỉ hiển thị cho ROLE_ADMIN) -->
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                               href="/admin">
+                                <i class="fas fa-cog"></i> Admin Panel
+                            </a>
+                            <!-- Nút đăng xuất -->
+                            <a href="#" onclick="document.getElementById('logoutForm').submit()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            <!-- Form đăng xuất ẩn -->
+                            <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            </form>
+                        </div>
+                    </div>
+                </span>
+
+                <!-- Phần người dùng chưa đăng nhập (hiển thị Login) -->
+                <span th:unless="${#authentication != null && #authentication.isAuthenticated()}">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Câu chuyện của chúng tôi</h1>
+        <p>Hành trình mang đến hương vị nướng đặc biệt</p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Khởi nguồn đam mê</h2>
+                <p>Grilled & Skewers được thành lập năm 2015 với mong muốn mang đến những món nướng ngon nhất theo phong cách truyền thống kết hợp hiện đại. Xuất phát từ một quán nhỏ ven đường, chúng tôi đã phát triển thành hệ thống nhà hàng được yêu thích.</p>
+                <p>Chúng tôi tin rằng nguyên liệu tươi ngon cùng công thức ướp gia truyền là chìa khóa tạo nên những món ăn đặc biệt.</p>
+            </div>
+            <div class="about-image">
+                <img src="images/restaurant-interior.jpg" alt="Không gian nhà hàng">
+            </div>
+        </div>
+
+        <div class="about-content reverse">
+            <div class="about-image">
+                <img src="images/grilling.jpg" alt="Quy trình nướng">
+            </div>
+            <div class="about-text">
+                <h2>Triết lý ẩm thực</h2>
+                <p>Chúng tôi chỉ sử dụng nguyên liệu tươi ngon nhất, được lựa chọn kỹ lưỡng từ các nhà cung cấp uy tín. Mỗi món ăn đều được chế biến tỉ mỉ với công thức đặc biệt.</p>
+                <p>Đội ngũ đầu bếp của chúng tôi không ngừng sáng tạo để mang đến trải nghiệm ẩm thực độc đáo cho thực khách.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2>Đội ngũ của chúng tôi</h2>
+        <p>Những con người tạo nên hương vị đặc biệt</p>
+
+        <div class="team-members">
+            <div class="team-member">
+                <img src="images/chef1.jpg" alt="Bếp trưởng">
+                <h3>Nguyễn Văn A</h3>
+                <p>Bếp trưởng</p>
+                <p>15 năm kinh nghiệm</p>
+            </div>
+
+            <div class="team-member">
+                <img src="images/chef2.jpg" alt="Phó bếp">
+                <h3>Trần Thị B</h3>
+                <p>Phó bếp</p>
+                <p>Chuyên gia nướng than hoa</p>
+            </div>
+
+            <div class="team-member">
+                <img src="images/manager.jpg" alt="Quản lý">
+                <h3>Lê Văn C</h3>
+                <p>Quản lý</p>
+                <p>Chăm sóc khách hàng</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="/default/images/PlaceYourLogoHere(DoubleClicktoEdit).png" alt="Grilled & Skewers" class="footer-logo">
+            </div>
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i> Main Road, Building Name, Country</p>
+                <p><i class="fas fa-envelope"></i> info@companyname.com</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><img src="/default/images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="/default/images/Facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="/default/images/Twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="/default/images/WhatsApp.png" alt="WhatsApp"></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <img src="/default/images/©CompanyName2020.Allrightsreserved..png" alt="Grilled & Skewers" class="copyright">
+        </div>
+    </div>
+</footer>
+</body>
+</html>

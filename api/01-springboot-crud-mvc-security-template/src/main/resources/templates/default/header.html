@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+<header class="hero">
+    <div class="navbar">
+        <div class="logo">
+            <img src="/default/images/PlaceYourLogoHere(DoubleClicktoEdit).png" alt="Grilled & Skewers Logo">
+        </div>
+        <div class="nav-right">
+            <div class="phone">
+                <img src="/default/images/Delivery Icon.png" class="clock-icon" alt="Clock">
+                <img src="/default/images/Phone.png" class="Phone" alt="Phone">
+            </div>
+            <div class="link">
+                <a th:href="@{/}">Home</a> |
+                <a th:href="@{/menu}">Menu</a> |
+                <a th:href="@{/ourstory}">Our Story</a> |
+                <a th:href="@{/contact-us}">Contact Us</a>
+            </div>
+            <span th:if="${#authentication != null && #authentication.isAuthenticated()}">
+                    <div class="user-section">
+                        <button class="user-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span th:text="${#authentication.name}"></span>
+                        </button>
+                        <div class="user-dropdown">
+                            <!-- Nút Admin (chỉ hiển thị cho ROLE_ADMIN) -->
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                               href="/admin">
+                                <i class="fas fa-cog"></i> Admin Panel
+                            </a>
+                            <!-- Nút đăng xuất -->
+                            <a href="#" onclick="document.getElementById('logoutForm').submit()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            <!-- Form đăng xuất ẩn -->
+                            <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            </form>
+                        </div>
+                    </div>
+                </span>
+
+            <!-- Phần người dùng chưa đăng nhập (hiển thị Login) -->
+            <span th:unless="${#authentication != null && #authentication.isAuthenticated()}">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </span>
+        </div>
+    </div>
+</header>
+</body>
+</html>

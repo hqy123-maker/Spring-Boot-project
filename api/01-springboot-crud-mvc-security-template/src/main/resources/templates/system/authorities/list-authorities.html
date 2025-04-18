@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout}">
+<head>
+  <title>Authority Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .action-buttons a {
+      margin-right: 10px;
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="main-content">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1><i class="fas fa-user-shield me-2"></i>Authority Management</h1>
+      <a th:href="@{/system/authorities/form-insert}" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i> Add New Authority
+      </a>
+    </div>
+
+    <!-- Hiển thị thông báo -->
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div th:if="${warning}" class="alert alert-warning" th:text="${warning}"></div>
+
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Authority List</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <tr>
+              <th>Username</th>
+              <th>Authority/Role</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="auth : ${authorities}">
+              <td th:text="${auth.username}"></td>
+              <td th:text="${auth.authority}"></td>
+              <td class="action-buttons">
+                <!-- Sửa link edit và delete để truyền cả username và authority -->
+                <a th:href="@{/system/authorities/form-update(username=${auth.username}, authority=${auth.authority})}"
+                   class="btn btn-sm btn-warning" title="Edit">
+                  <i class="fas fa-edit"></i> Edit
+                </a>
+                <a th:href="@{/system/authorities/delete(username=${auth.username}, authority=${auth.authority})}"
+                   onclick="return confirm('Are you sure you want to delete this authority?')"
+                   class="btn btn-sm btn-danger" title="Delete">
+                  <i class="fas fa-trash-alt"></i> Delete
+                </a>
+              </td>
+            </tr>
+            <tr th:if="${authorities.isEmpty()}">
+              <td colspan="3" class="text-center text-muted">No authorities found</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

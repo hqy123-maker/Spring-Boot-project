@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grilled & Skewers</title>
+    <link rel="stylesheet" href="/default/css/style.css">
+</head>
+<body>
+<!-- Group 1: Header/Hero Section -->
+<header class="hero">
+    <div class="navbar">
+        <div class="logo">
+            <img src="/default/images/PlaceYourLogoHere(DoubleClicktoEdit).png" alt="Grilled & Skewers Logo">
+        </div>
+        <div class="nav-right">
+            <div class="phone">
+                <img src="/default/images/Delivery Icon.png" class="clock-icon" alt="Clock">
+                <img src="/default/images/Phone.png"class="Phone" alt="Phone">
+            </div>
+
+            <div class="link">
+                <a th:href="@{/}">Home</a> |
+                <a th:href="@{/menu}">Menu</a> |
+                <a th:href="@{/ourstory}">Our Story</a> |
+                <a th:href="@{/contact-us}">Contact Us</a>
+                <!-- Phần người dùng đã đăng nhập -->
+                <span th:if="${#authentication != null && #authentication.isAuthenticated()}">
+                    <div class="user-section">
+                        <button class="user-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <span th:text="${#authentication.name}"></span>
+                        </button>
+                        <div class="user-dropdown">
+                            <!-- Nút Admin (chỉ hiển thị cho ROLE_ADMIN) -->
+                            <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                               href="/admin">
+                                <i class="fas fa-cog"></i> Admin Panel
+                            </a>
+                            <!-- Nút đăng xuất -->
+                            <a href="#" onclick="document.getElementById('logoutForm').submit()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            <!-- Form đăng xuất ẩn -->
+                            <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            </form>
+                        </div>
+                    </div>
+                </span>
+
+                <!-- Phần người dùng chưa đăng nhập (hiển thị Login) -->
+                <span th:unless="${#authentication != null && #authentication.isAuthenticated()}">
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-content">
+        <div class="title-section">
+            <h1 class="title">Grilled & Skewers</h1>
+            <div class="sub-title-container">
+                <div class="sub-title-wrapper">
+                    <img src="/default/images/PlaceYourDesignHere(DoubleClicktoEdit)2.png" class="title-background" alt="Title background graphic">
+                    <img src="/default/images/BodyText4.png" class="sub-title-text" alt="Hot & Delicious">
+                </div>
+            </div>
+        </div>
+        <div class="food-section">
+            <img src="/default/images/Food4.png" alt="Skewers and Food" class="food-image">
+            <img src="/default/images/CornBowl.png" alt="Corn Bowl" class="corn-bowl">
+            <img src="/default/images/TomatoSauce.png" alt="Tomato Sauce" class="tomato-sauce">
+        </div>
+    </div>
+</header>
+
+<!-- Group 2: Our Story Section -->
+<section class="our-story">
+    <div class="story-content">
+        <h2 class="story-title"><span class="highlight">OUR</span> Story</h2>
+        <p class="story-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Quis ipsum su spendisse ultrices
+            gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+        </p>
+        <a href="#" class="read-more">READ MORE</a>
+    </div>
+    <div class="story-images">
+        <img src="/default/images/BellPepper.png" alt="Quả tiêu vàng" class="story-pepper">
+        <img src="/default/images/Lemon.png" alt="Quả chanh" class="story-lemon">
+    </div>
+</section>
+
+<!-- Group 3: Menu Section -->
+<section class="discover-menu">
+    <div class="menu-header">
+        <h2 class="menu-title"><span class="highlight">DISCOVER</span> OUR MENU</h2>
+        <p class="menu-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+    <div class="menu-items">
+        <div class="menu-item">
+            <img src="/default/images/Food3.png" alt="Que xiên rau củ" class="menu-image">
+            <h3 class="menu-name">LOREM IPSUM</h3>
+        </div>
+        <span class="arrow"><</span>
+        <div class="menu-item">
+            <img src="/default/images/Foodimage2.png" alt="Gà nướng" class="menu-image">
+            <h3 class="menu-name">LOREM IPSUM</h3>
+        </div>
+        <span class="arrow">></span>
+        <div class="menu-item">
+            <img src="/default/images/Food2.png" alt="Thịt bò nướng" class="menu-image">
+            <h3 class="menu-name">LOREM IPSUM</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Group 4: Events Section -->
+<section class="upcoming-events">
+    <div class="events-content">
+        <h2 class="events-title"><span class="highlight">DISCOVER</span> Upcoming Events</h2>
+        <p class="events-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
+            Risus commodo viverra maecenas accumsan lacus vel facilisis.
+        </p>
+        <div class="events-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Group 5: Reservation Section -->
+<section class="book-table">
+    <div class="book-content">
+        <h2 class="book-title"><span class="highlight">RESERVATION</span> Book your table</h2>
+        <form class="book-form">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="date" placeholder="Date" required>
+            <input type="time" placeholder="Time" required>
+            <input type="number" placeholder="People" min="1" required>
+            <button type="submit">FIND A TABLE</button>
+        </form>
+    </div>
+    <img src="/default/images/Food.png" alt="Miếng thịt bò trên thớt" class="book-decor-left">
+    <img src="/default/images/Tomato.png" alt="Chùm cà chua nhỏ" class="book-decor-right">
+</section>
+
+<!-- Group 6: Footer Section -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="/default/images/PlaceYourLogoHere(DoubleClicktoEdit).png" alt="Grilled & Skewers" class="footer-logo">
+
+            </div>
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i> Main Road, Building Name, Country</p>
+                <p><i class="fas fa-envelope"></i> info@companyname.com</p>
+            </div>
+            <div class="social-links">
+                <a href="#"><img src="/default/images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="/default/images/Facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="/default/images/Twitter.png" alt="Twitter"></a>
+                <a href="#"><img src="/default/images/WhatsApp.png" alt="WhatsApps"></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <img src="/default/images/©CompanyName2020.Allrightsreserved..png" alt="Grilled & Skewers" class="copyringt">
+        </div>
+    </div>
+</footer>
+</body>
+</html>
